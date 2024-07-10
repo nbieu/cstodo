@@ -1,0 +1,18 @@
+﻿@model List<cstodo.Entities.Todo>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+    @foreach (var todo in Model)
+    {
+        <tr>
+            <td>@todo.Id</td>
+            <td>@todo.title</td>
+            <td>@todo.status</td>
+        </tr>
+    }
+<a href="@Url.Action("Create")" class="btn btn-primary">Add Todo</a>
