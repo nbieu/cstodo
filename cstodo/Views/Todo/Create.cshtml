@@ -1,21 +1,27 @@
 ﻿@model cstodo.Entities.Todo
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Thiết lập layout chung nếu có
 }
 
-<h2>Create</h2>
+<div class="container">
+    <h2>Create Todo</h2>
 
-@using (Html.BeginForm())
-{
-    <div class="form-group">
-        @Html.LabelFor(m => m.title)
-        @Html.TextBoxFor(m => m.title, new { @class = "form-control" })
-    </div>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.title, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.title, new { @class = "form-control", placeholder = "Enter title" })
+            @Html.ValidationMessageFor(m => m.title, "", new { @class = "text-danger" })
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.status)
-        @Html.TextBoxFor(m => m.status, new { @class = "form-control" })
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.status, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.status, new { @class = "form-control", placeholder = "Enter status" })
+            @Html.ValidationMessageFor(m => m.status, "", new { @class = "text-danger" })
+        </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-}
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="@Url.Action("Index")" class="btn btn-default">Back to List</a>
+    }
+</div>
