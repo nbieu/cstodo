@@ -9,9 +9,9 @@ namespace cstodo.Entities
 {
     public class Todo
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
+        //[BsonId]
+        //[BsonRepresentation(BsonType.ObjectId)]
+        //public ObjectId Id { get; set; }
 
         // Other properties of Todo class
         public string title { get; set; }
