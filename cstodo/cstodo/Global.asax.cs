@@ -24,6 +24,7 @@ namespace cstodo
             var database = client.GetDatabase("todo_task");
             var todoCollection = database.GetCollection<Todo>("todos");
 
+<<<<<<< HEAD
             // Khởi tạo TodoSqlRepository cho SQL Server
             string sqlServerConnectionString = "Server=LAPTOP-FD3P69GF;Database=TODO;Integrated Security=True;";
             ITodoRepository todoRepository = new TodoSqlRepository(sqlServerConnectionString);
@@ -69,5 +70,38 @@ namespace cstodo
             }
         }
 
+=======
+            // Thiết lập Dependency Resolver
+            DependencyResolver.SetResolver(new MyDependencyResolver(todoCollection));
+        }
+>>>>>>> d290c544dfaca1125b35904bb8fc89c4ee03741b
     }
+
+    public class MyDependencyResolver : IDependencyResolver
+    {
+        private IMongoCollection<Todo> todoCollection;
+
+        public MyDependencyResolver(IMongoCollection<Todo> todoCollection)
+        {
+            this.todoCollection = todoCollection;
+        }
+
+        public object GetService(Type serviceType)
+        {
+            if (serviceType == typeof(TodoController))
+            {
+                var repository = new TodoRepository(todoCollection);
+                var addTodo = new AddTodo(repository);
+                var getAllTodos = new GetAllTodos(repository);
+                return new TodoController(addTodo, getAllTodos);
+            }
+            return null;
+        }
+
+        public IEnumerable<object> GetServices(Type serviceType)
+        {
+            return Enumerable.Empty<object>();
+        }
+    }
+
 }

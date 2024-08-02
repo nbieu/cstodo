@@ -1,0 +1,31 @@
+﻿@model List<cstodo.Entities.Todo>
+@{
+    ViewBag.Title = "Todo List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Thiết lập layout chung nếu có
+}
+
+<div class="container">
+    <h2>Todo List</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var todo in Model)
+            {
+                <tr>
+                    @*<td>@todo.Id</td>*@
+                    <td>@todo.title</td>
+                    <td>@todo.status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("Create")" class="btn btn-success">Add New</a>
+</div>

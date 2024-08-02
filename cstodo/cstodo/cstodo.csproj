@@ -209,9 +209,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\TodoFileRepository.cs" />
     <Compile Include="Repositories\TodoRepository.cs" />
-    <Compile Include="Repositories\TodoSqlRepository.cs" />
-    <Compile Include="Usecases\AddTodo.cs" />
-    <Compile Include="Usecases\GetAllTodos.cs" />
+    <Compile Include="Services\AddTodo.cs" />
+    <Compile Include="Services\GetAllTodos.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
