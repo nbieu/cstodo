@@ -1,0 +1,8 @@
+title,status
+Play badminton,pending
+Hanging out with my friends,complete
+Get work,complete
+Do sth,pending
+{todo.title},{todo.status}
+${todo.title},{todo.status}
+say hi,complete

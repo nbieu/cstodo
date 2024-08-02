@@ -207,6 +207,7 @@
     </Compile>
     <Compile Include="ITodoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TodoFileRepository.cs" />
     <Compile Include="Repositories\TodoRepository.cs" />
     <Compile Include="Repositories\TodoSqlRepository.cs" />
     <Compile Include="Usecases\AddTodo.cs" />
