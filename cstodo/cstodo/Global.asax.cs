@@ -24,42 +24,36 @@ namespace cstodo
             var database = client.GetDatabase("todo_task");
             var todoCollection = database.GetCollection<Todo>("todos");
 
-            // Khởi tạo TodoSqlRepository cho SQL Server
-            string sqlServerConnectionString = "Server=LAPTOP-FD3P69GF;Database=TODO;Integrated Security=True;";
-            ITodoRepository todoRepository = new TodoSqlRepository(sqlServerConnectionString);
-
             // Thiết lập Dependency Resolver
-            DependencyResolver.SetResolver(new MyDependencyResolver(todoCollection, todoRepository));
+            DependencyResolver.SetResolver(new MyDependencyResolver(todoCollection));
         }
-
-        public class MyDependencyResolver : IDependencyResolver
-        {
-            private IMongoCollection<Todo> todoCollection;
-            private ITodoRepository todoRepository;
-
-            public MyDependencyResolver(IMongoCollection<Todo> todoCollection, ITodoRepository todoRepository)
-            {
-                this.todoCollection = todoCollection;
-                this.todoRepository = todoRepository;
-            }
-
-            public object GetService(Type serviceType)
-            {
-                if (serviceType == typeof(TodoController))
-                {
-                    var repository = new TodoRepository(todoCollection);
-                    var addTodo = new AddTodo(repository);
-                    var getAllTodos = new GetAllTodos(repository);
-                    return new TodoController(addTodo, getAllTodos, todoRepository);
-                }
-                return null;
-            }
-
-            public IEnumerable<object> GetServices(Type serviceType)
-            {
-                return Enumerable.Empty<object>();
-            }
-        }
-
     }
+
+    public class MyDependencyResolver : IDependencyResolver
+    {
+        private IMongoCollection<Todo> todoCollection;
+
+        public MyDependencyResolver(IMongoCollection<Todo> todoCollection)
+        {
+            this.todoCollection = todoCollection;
+        }
+
+        public object GetService(Type serviceType)
+        {
+            if (serviceType == typeof(TodoController))
+            {
+                var repository = new TodoRepository(todoCollection);
+                var addTodo = new AddTodo(repository);
+                var getAllTodos = new GetAllTodos(repository);
+                return new TodoController(addTodo, getAllTodos);
+            }
+            return null;
+        }
+
+        public IEnumerable<object> GetServices(Type serviceType)
+        {
+            return Enumerable.Empty<object>();
+        }
+    }
+
 }
